@@ -5,6 +5,7 @@ let state = {
 };
 
 // --- FUNÇÕES DE NAVEGAÇÃO ---
+// --- FUNÇÕES DE NAVEGAÇÃO (Atualizada para Visual Premium) ---
 const renderDashboard = () => {
     const container = document.getElementById('dashboard');
     container.innerHTML = '';
@@ -12,13 +13,18 @@ const renderDashboard = () => {
     state.playlists.forEach(pl => {
         const card = document.createElement('div');
         card.className = 'playlist-card';
+        // Adiciona o evento de clique no card inteiro
+        card.setAttribute('onclick', `abrirPlaylist(${pl.id})`);
+        
         card.innerHTML = `
-            <h3>${pl.nome}</h3>
-            <p style="color: var(--text-dim); font-size: 0.9rem; margin: 10px 0;">${pl.videos.length} Vídeos</p>
-            <div style="display: flex; gap: 10px; justify-content: center;">
-                <button class="btn btn-outline" onclick="abrirPlaylist(${pl.id})">Abrir</button>
-                <button class="btn-delete-small" onclick="excluirPlaylist(${pl.id})"><i class="fas fa-trash"></i></button>
+            <div>
+                <h3>${pl.nome}</h3>
+                <p>${pl.videos.length} Vídeos</p>
             </div>
+            <button class="btn-delete-small" style="position: absolute; top: 10px; right: 10px; z-index: 2;" 
+                onclick="event.stopPropagation(); excluirPlaylist(${pl.id})">
+                <i class="fas fa-trash"></i>
+            </button>
         `;
         container.appendChild(card);
     });
