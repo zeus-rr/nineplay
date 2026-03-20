@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MyTube Playlists | Profª Jaque</title>
+    
+    <link rel="icon" href="nine.ico?v=2" type="image/x-icon">
+    
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Sortable/1.15.0/Sortable.min.js"></script>
+</head>
+<body>
+
+    <div id="admin-view" class="view-container">
+        <header class="main-header">
+            <div class="brand">
+                <img src="nine.ico" alt="Logo" class="nav-logo">
+                <h1>MyTube Manager</h1>
+            </div>
+            <div class="actions">
+                <button class="btn btn-outline" onclick="exportarDados()" title="Exportar Backup">
+                    <i class="fas fa-download"></i>
+                </button>
+                <button class="btn btn-outline" onclick="document.getElementById('importFile').click()" title="Importar Backup">
+                    <i class="fas fa-upload"></i>
+                </button>
+                <input type="file" id="importFile" hidden onchange="importarDados(event)">
+                <button class="btn btn-primary" onclick="criarNovaPlaylist()">
+                    <i class="fas fa-plus"></i> Novo Quadro
+                </button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <div id="dashboard" class="grid-layout"></div>
+        </main>
+    </div>
+
+    <div id="playlist-view" class="view-container hidden">
+        <header class="main-header">
+            <div class="brand">
+                <button class="btn-back" onclick="voltarParaAdmin()">
+                    <i class="fas fa-chevron-left"></i> Voltar
+                </button>
+                <h2 id="current-playlist-title">Playlist</h2>
+            </div>
+            <div class="actions">
+                <button class="btn btn-primary" onclick="solicitarLinkYoutube()">
+                    <i class="fab fa-youtube"></i> Adicionar Vídeo
+                </button>
+            </div>
+        </header>
+
+        <main class="content-area">
+            <div id="video-list" class="grid-layout videos"></div>
+        </main>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
