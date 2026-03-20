@@ -61,9 +61,15 @@ function voltarParaAdmin() {
 }
 
 function formatarLink(url) {
+    // Regex para capturar IDs de diversos formatos de link do YT
     const regExp = /^.*(youtu.be\/|v\/|u\/\w\/|embed\/|watch\?v=|\&v=)([^#\&\?]*).*/;
     const match = url.match(regExp);
-    return (match && match[2].length === 11) ? `https://www.youtube.com/embed/${match[2]}` : null;
+
+    if (match && match[2].length === 11) {
+        // Utilizamos o domínio youtube-nocookie para uma experiência mais limpa
+        return `https://www.youtube-nocookie.com/embed/${match[2]}`;
+    }
+    return null;
 }
 
 function solicitarLinkYoutube() {
