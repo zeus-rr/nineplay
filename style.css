@@ -1,74 +1,187 @@
+/* style.css - Novo Visual Estilo Netflix/YouTube */
 :root {
-    --primary-red: #ff0000;
-    --dark-bg: #0f0f0f;
-    --card-bg: #1e1e1e;
+    /* Cores Premium: Fundo totalmente preto para contraste máximo */
+    --primary-red: #E50914; /* Vermelho Netflix */
+    --dark-bg: #000000;    /* Preto Absoluto */
+    --card-bg: #141414;    /* Cinza muito escuro para cards */
+    --hover-bg: #2a2a2a;   /* Para efeitos de passar o mouse */
     --text-main: #ffffff;
-    --text-dim: #aaaaaa;
+    --text-dim: #b3b3b3;   /* Cinza claro para textos secundários */
     --border: #333333;
+    
+    /* Arredondamento Moderno */
+    --radius-lg: 12px;
+    --radius-md: 8px;
+    --radius-sm: 4px;
+    
+    /* Transição suave */
+    --transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
 }
 
-* { box-sizing: border-box; margin: 0; padding: 0; font-family: 'Inter', sans-serif; }
+* { 
+    box-sizing: border-box; 
+    margin: 0; 
+    padding: 0; 
+    font-family: 'Poppins', 'Inter', sans-serif; /* Poppins dá um toque mais premium */
+}
 
-body { background-color: var(--dark-bg); color: var(--text-main); }
+body { 
+    background-color: var(--dark-bg); 
+    color: var(--text-main); 
+    -webkit-font-smoothing: antialiased; /* Melhora a renderização da fonte */
+}
 
-/* Header Adaptável */
+/* --- Header Imersivo --- */
 .main-header {
-    height: 65px;
-    padding: 0 15px;
+    height: 70px;
+    padding: 0 4%; /* Margem lateral maior, estilo Netflix */
     display: flex;
     justify-content: space-between;
     align-items: center;
-    background: #111;
-    border-bottom: 1px solid var(--border);
+    background: linear-gradient(to bottom, rgba(0,0,0,0.8) 0%, rgba(0,0,0,0) 100%); /* Gradiente suave */
     position: sticky;
     top: 0;
     z-index: 1000;
+    border-bottom: none; /* Removemos a borda para visual mais limpo */
 }
 
-.brand { display: flex; align-items: center; gap: 8px; overflow: hidden; }
-.brand h1 { font-size: 1.1rem; white-space: nowrap; }
-.nav-logo { width: 32px; height: 32px; border-radius: 50%; border: 1px solid var(--primary-red); }
+.brand { display: flex; align-items: center; gap: 12px; }
+.brand h1, .brand h2 { 
+    font-size: 1.5rem; 
+    font-weight: 700; 
+    color: var(--primary-red); /* Título na cor principal */
+    letter-spacing: -1px;
+}
+.nav-logo { 
+    width: 35px; 
+    height: 35px; 
+    border-radius: var(--radius-sm); 
+    border: none;
+}
 
-.actions { display: flex; gap: 8px; }
+.actions { display: flex; gap: 10px; }
 
-/* Botões Estilo Mobile */
+/* --- Botões Modernos --- */
 .btn {
-    height: 40px;
-    padding: 0 12px;
-    border-radius: 8px;
+    height: 42px;
+    padding: 0 20px;
+    border-radius: var(--radius-sm); /* Bordas menos arredondadas nos botões, estilo Netflix */
     border: none;
     cursor: pointer;
     font-weight: 600;
+    font-size: 0.9rem;
     display: flex;
     align-items: center;
-    gap: 6px;
+    gap: 8px;
+    transition: var(--transition);
+    text-transform: uppercase; /* Estilo de botão de ação */
+    letter-spacing: 1px;
 }
 
-.btn-primary { background: var(--primary-red); color: white; }
-.btn-outline { background: #272727; color: white; }
+.btn-primary { 
+    background: var(--primary-red); 
+    color: white; 
+}
+.btn-primary:hover {
+    background: #ff1f2d; /* Vermelho mais brilhante no hover */
+    transform: scale(1.05);
+}
 
-/* Grid de Vídeos e Playlists */
+.btn-outline { 
+    background: rgba(255,255,255,0.1); /* Transparência moderna */
+    color: white; 
+    backdrop-filter: blur(5px); /* Efeito de vidro */
+}
+.btn-outline:hover {
+    background: rgba(255,255,255,0.2);
+}
+
+.btn-back {
+    background: none;
+    border: none;
+    color: white;
+    font-size: 1rem;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-right: 15px;
+    transition: var(--transition);
+}
+.btn-back:hover {
+    color: var(--text-dim);
+    transform: translateX(-3px); /* Move levemente para a esquerda */
+}
+
+/* --- Grid de Conteúdo --- */
 .grid-layout {
     display: grid;
-    grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
-    gap: 15px;
-    padding: 15px;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 25px; /* Mais espaço entre os cards */
+    padding: 20px 4%; /* Acompanha a margem do header */
 }
 
-/* No Celular, o grid ocupa a largura toda */
-@media (max-width: 480px) {
-    .grid-layout { grid-template-columns: 1fr; padding: 10px; }
-    .brand h1 { display: none; } /* Esconde o texto no celular pra caber os botões */
-    .brand::after { content: 'MyTube'; font-weight: bold; }
+/* Responsividade Mobile */
+@media (max-width: 600px) {
+    .grid-layout { 
+        grid-template-columns: repeat(auto-fill, minmax(200px, 1fr)); 
+        gap: 15px;
+        padding: 15px;
+    }
+    .brand h1 { font-size: 1.2rem; }
+    .btn span { display: none; } /* Esconde texto dos botões em telas pequenas */
+    .btn { padding: 0 12px; }
 }
 
-/* Cards de Vídeo */
-.video-card {
+/* --- Cards de Playlist (Estilo Capa de Filme) --- */
+.playlist-card {
     background: var(--card-bg);
-    border-radius: 12px;
+    border-radius: var(--radius-md);
     overflow: hidden;
-    margin-bottom: 10px;
-    box-shadow: 0 4px 15px rgba(0,0,0,0.5);
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    border: 1px solid transparent; /* Prepara para borda no hover */
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end; /* Conteúdo na parte inferior */
+    min-height: 160px; /* Altura mínima para parecer uma capa */
+    padding: 20px;
+    background-image: linear-gradient(to top, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.2) 100%); /* Gradiente interno */
+}
+
+/* Efeito de Zoom e Borda Estilo Netflix */
+.playlist-card:hover {
+    transform: scale(1.08); /* Zoom significativo */
+    z-index: 10; /* Fica acima dos outros */
+    border-color: rgba(255,255,255,0.3);
+    box-shadow: 0 10px 30px rgba(0,0,0,0.8);
+}
+
+.playlist-card h3 { 
+    font-size: 1.2rem; 
+    font-weight: 700;
+    margin-bottom: 5px;
+}
+
+.playlist-card p { 
+    color: var(--text-dim); 
+    font-size: 0.85rem; 
+    font-weight: 400;
+}
+
+/* Esconde os botões originais do card, vamos usar o clique no card todo */
+.playlist-card .card-actions {
+    display: none;
+}
+
+/* --- Cards de Vídeo (Mais Limpos, Estilo YouTube) --- */
+.video-card {
+    background: none; /* Remove fundo do card */
+    border-radius: var(--radius-md);
+    overflow: hidden;
+    transition: var(--transition);
+    border: none;
 }
 
 .iframe-container {
@@ -76,6 +189,15 @@ body { background-color: var(--dark-bg); color: var(--text-main); }
     padding-bottom: 56.25%; /* 16:9 */
     height: 0;
     background: #000;
+    border-radius: var(--radius-md); /* Arredonda o próprio vídeo */
+    overflow: hidden;
+    transition: var(--transition);
+}
+
+/* Efeito de elevação do vídeo no hover */
+.video-card:hover .iframe-container {
+    transform: translateY(-5px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.7);
 }
 
 .iframe-container iframe {
@@ -84,19 +206,45 @@ body { background-color: var(--dark-bg); color: var(--text-main); }
 }
 
 .video-info {
-    padding: 12px 15px;
+    padding: 10px 5px; /* Menos padding, visual mais colado */
     display: flex;
     justify-content: space-between;
-    align-items: center;
+    align-items: flex-start;
+}
+
+.video-info span {
+    font-weight: 600;
+    font-size: 0.95rem;
+    color: var(--text-main);
 }
 
 .btn-delete-small {
-    width: 40px;
-    height: 40px;
-    background: rgba(255,255,255,0.05);
+    width: 30px;
+    height: 30px;
+    background: transparent;
     border: none;
-    border-radius: 50%;
     color: var(--text-dim);
+    border-radius: 50%;
+    transition: var(--transition);
+    opacity: 0; /* Escondido por padrão */
 }
 
-.hidden { display: none; }
+/* Mostra o botão de deletar apenas quando passa o mouse no card */
+.video-card:hover .btn-delete-small {
+    opacity: 1;
+    background: rgba(255,255,255,0.1);
+}
+
+.btn-delete-small:hover {
+    color: var(--primary-red);
+    background: rgba(229, 9, 20, 0.1) !important;
+}
+
+/* Utilitários */
+.hidden { display: none !important; }
+
+/* Customização da barra de rolagem (Scrollbar) Estilo Dark */
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: var(--dark-bg); }
+::-webkit-scrollbar-thumb { background: #333; border-radius: var(--radius-sm); }
+::-webkit-scrollbar-thumb:hover { background: #555; }
